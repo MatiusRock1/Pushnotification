@@ -1,0 +1,27 @@
+{
+  "name": "firebasepush",
+  "version": "1.0.0",
+  "description": "la idea de este mini proyecto es solucionar el problema de nottifca sundevs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MatiusRock1/Firebasepush.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MatiusRock1/Firebasepush/issues"
+  },
+  "homepage": "https://github.com/MatiusRock1/Firebasepush#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
