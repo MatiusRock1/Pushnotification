@@ -41,13 +41,13 @@ router.post('/registertokentopic/', (req,res) => {
 
 router.post('/sendtopic', (req,res) => {
     
-    const topic = ''+req.body.topic;
+    const topic = req.body.topic;
     console.log (topic);
 
     const message = {
         notification: {
-            title: '$FooCorp up 1.43% on the day',
-            body: 'prueba'
+            title: req.body.title,
+            body: req.body.body
           },
         
       data: {
