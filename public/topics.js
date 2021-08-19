@@ -1,4 +1,5 @@
 $('#metallica').click(function(){
+    console.log(token);
     var data = { token : token, topic : "Metallica" };
     $.ajax({
             url : 'https://firebase.matius-rock.com/registertokentopic',
@@ -6,7 +7,7 @@ $('#metallica').click(function(){
             method : 'post', //en este caso
             dataType : 'json',
             success : function(response){
-                   //codigo de exito
+                console.log(response);
             },
             error: function(error){
                    //codigo error
@@ -14,6 +15,7 @@ $('#metallica').click(function(){
     });
 });
 $('#anime').click(function(){
+    console.log(token);
     var data = { token : token, topic : "anime" };
     $.ajax({
             url : 'https://firebase.matius-rock.com/registertokentopic',
@@ -21,7 +23,7 @@ $('#anime').click(function(){
             method : 'post', //en este caso
             dataType : 'json',
             success : function(response){
-                   //codigo de exito
+                console.log(response);
             },
             error: function(error){
                    //codigo error
@@ -29,6 +31,7 @@ $('#anime').click(function(){
     });
 });
 $('#manga').click(function(){
+    console.log(token);
     var data = { token : token, topic : "manga" };
     $.ajax({
             url : 'https://firebase.matius-rock.com/registertokentopic',
@@ -36,7 +39,7 @@ $('#manga').click(function(){
             method : 'post', //en este caso
             dataType : 'json',
             success : function(response){
-                   //codigo de exito
+                   console.log(response);
             },
             error: function(error){
                    //codigo error
