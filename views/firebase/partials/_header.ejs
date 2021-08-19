@@ -16,6 +16,7 @@
   
 
   <script>
+      var tokenweb = "";
     var firebaseConfig = {
         apiKey: "AIzaSyC3GrK6wgCXzACXVOj5zd3bOeirSA5dOeE",
         authDomain: "pruebacloudmessaging-1582e.firebaseapp.com",
@@ -38,6 +39,7 @@
             })
             .then(function (token) {
                 console.log("Token : "+token);
+                tokenweb = token;
                 document.getElementById("token").innerHTML=token;
             })
             .catch(function (reason) {
@@ -74,7 +76,7 @@
     })
     IntitalizeFireBaseMessaging();
 </script>
-<script src="/topics.js"></script>
+
   
 
 

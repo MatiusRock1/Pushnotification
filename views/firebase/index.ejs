@@ -17,8 +17,8 @@
 
 <script>
     $('#metallica').click(function(){
-    console.log(token);
-    var data = { token : token, topic : "Metallica" };
+    console.log(tokenweb);
+    var data = { token : tokenweb, topic : "Metallica" };
     $.ajax({
             url : 'https://firebase.matius-rock.com/registertokentopic',
             data : data, 
@@ -33,8 +33,8 @@
     });
 });
 $('#anime').click(function(){
-    console.log(token);
-    var data = { token : token, topic : "anime" };
+    console.log(tokenweb);
+    var data = { token : tokenweb, topic : "anime" };
     $.ajax({
             url : 'https://firebase.matius-rock.com/registertokentopic',
             data : data, 
@@ -49,8 +49,8 @@ $('#anime').click(function(){
     });
 });
 $('#manga').click(function(){
-    console.log(token);
-    var data = { token : token, topic : "manga" };
+    console.log(tokenweb);
+    var data = { token : tokenweb, topic : "manga" };
     $.ajax({
             url : 'https://firebase.matius-rock.com/registertokentopic',
             data : data, 
