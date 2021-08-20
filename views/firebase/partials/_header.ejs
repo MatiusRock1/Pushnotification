@@ -48,6 +48,8 @@
     }
 
     messaging.onMessage(function (payload) {
+
+        if (payload.notification.body != null){
         console.log(payload);
         const notificationOption={
             body:payload.notification.body,
@@ -63,7 +65,7 @@
                 notification.close();
             }
         }
-
+    }
     });
     messaging.onTokenRefresh(function () {
         messaging.getToken()
