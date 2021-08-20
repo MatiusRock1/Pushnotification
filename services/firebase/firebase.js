@@ -28,6 +28,7 @@ admin.initializeApp({
     } 
 
     function sendmessagetopic (topic,title,body){
+        var funcionresponse;
         const message = {
             notification: {
                 title: title,
@@ -48,9 +49,16 @@ admin.initializeApp({
           .then((response) => {
             // Response is a message ID string.
             console.log('Successfully sent message:', response);
+            funcionresponse = "Successfully sent message";
           })
           .catch((error) => {
             console.log('Error sending message:', error);
+            funcionresponse = "Error sending message";
+          });
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve(funcionresponse);
+            }, 2000);
           });
     }
 
