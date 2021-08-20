@@ -30,11 +30,11 @@ admin.initializeApp({
     function sendmessagetopic (topic,title,body){
         var funcionresponse;
         const message = {
-            notification: {
+           /* notification: {
                 title: title,
                 body: body
               },
-            
+            */
 
           data: {
             volume : "3.21.15",
