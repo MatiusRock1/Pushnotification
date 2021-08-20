@@ -38,6 +38,7 @@ admin.initializeApp({
 
           data: {
             volume : "3.21.15",
+            type : "nottification"
           },
           //topic: topic
           token : "cHfT7R4RnXL-gXHFFzlmTG:APA91bHAWKjxjAPm9aTkMk6T0HvQCCa8qWEzbV-DrWmYKhDo4YXISoytkYtmPHsoXcDG3eJZ_DzUxWjaVYoOEo1yTsfkfksAl8HxeHspRO9AqQEaYJhexeO3vUdwPk-m_riObcAep8s2"
