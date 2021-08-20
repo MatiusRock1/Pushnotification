@@ -16,7 +16,8 @@ const messaging=firebase.messaging();
 
 messaging.setBackgroundMessageHandler(function (payload) {
     console.log(payload);
-    if (payload.data.type == "nottification"){
+    console.log(payload.data.type);
+    if (payload.data.type === "nottification"){
     const notification=JSON.parse(payload);    
         const notificationOption={
             body:notification.body,
