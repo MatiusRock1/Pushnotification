@@ -22,10 +22,8 @@ messaging.setBackgroundMessageHandler(function (payload) {
             body:notification.body,
             icon:notification.icon
         };
+        return self.registration.showNotification(payload.notification.title,notificationOption);
     }    
-    console.log(body);
-    if(body == null){
-        console.log(body + "adentro");
-    }
-    return self.registration.showNotification(payload.notification.title,notificationOption);
+    
+    
 });
