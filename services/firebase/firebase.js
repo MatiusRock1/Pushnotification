@@ -35,11 +35,12 @@ admin.initializeApp({
                 body: body
               },
             
+
           data: {
-            score: '850',
-            time: '2:45'
+            volume : "3.21.15",
           },
-          topic: topic
+          //topic: topic
+          token : "cHfT7R4RnXL-gXHFFzlmTG:APA91bHAWKjxjAPm9aTkMk6T0HvQCCa8qWEzbV-DrWmYKhDo4YXISoytkYtmPHsoXcDG3eJZ_DzUxWjaVYoOEo1yTsfkfksAl8HxeHspRO9AqQEaYJhexeO3vUdwPk-m_riObcAep8s2"
          
     
         };
@@ -62,7 +63,11 @@ admin.initializeApp({
           });
     }
 
-  
+    function gettopiclist(){
+        
+    }
 
+  
+    exports.gettopiclist = gettopiclist;
     exports.sendmessagetopic = sendmessagetopic;
     exports.setregistertokenintopic= setregistertokenintopic;
