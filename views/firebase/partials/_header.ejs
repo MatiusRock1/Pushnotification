@@ -49,7 +49,7 @@
 
     messaging.onMessage(function (payload) {
 
-        if (payload.notification.body != null){
+        if (payload.data.type == "nottification"){
         console.log(payload);
         const notificationOption={
             body:payload.notification.body,
