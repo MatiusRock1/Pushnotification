@@ -17,10 +17,12 @@ const messaging=firebase.messaging();
 messaging.setBackgroundMessageHandler(function (payload) {
     console.log(payload);
     const notification=JSON.parse(payload);
-    const notificationOption={
-        body:notification.body,
-        icon:notification.icon
-    };
+    if (notification.body != null){
+        const notificationOption={
+            body:notification.body,
+            icon:notification.icon
+        };
+    }    
     console.log(body);
     if(body == null){
         console.log(body + "adentro");
