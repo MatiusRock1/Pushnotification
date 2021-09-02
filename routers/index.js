@@ -3,9 +3,7 @@ const router = express.Router();
 var firebasecontructor = require('../services/firebase/firebase');
 var firebaserouter = require('../services/firebase/router');
 
-router.get('/',  (req, res) =>{    
-       res.render('index');
-});
+
 router.post('/registertokentopic', firebaserouter.registerintopic);
 router.post('/sendtopic', firebaserouter.sendmessagetopic);
 

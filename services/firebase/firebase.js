@@ -30,18 +30,17 @@ admin.initializeApp({
     function sendmessagetopic (topic,title,body){
         var funcionresponse;
         const message = {
-           /* notification: {
+            notification: {
                 title: title,
                 body: body
-              },
-            */
+              },         
 
           data: {
-            volume : "3.21.15",
-            type : "nottification"
+            //volume : "3.21.15",
+            type : "vavalidacion"
           },
-          //topic: topic
-          token : "cHfT7R4RnXL-gXHFFzlmTG:APA91bHAWKjxjAPm9aTkMk6T0HvQCCa8qWEzbV-DrWmYKhDo4YXISoytkYtmPHsoXcDG3eJZ_DzUxWjaVYoOEo1yTsfkfksAl8HxeHspRO9AqQEaYJhexeO3vUdwPk-m_riObcAep8s2"
+          topic: topic
+          
          
     
         };
@@ -56,6 +55,34 @@ admin.initializeApp({
           .catch((error) => {
             console.log('Error sending message:', error);
             funcionresponse = "Error sending message";
+          });
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve(funcionresponse);
+            }, 2000);
+          });
+    }
+
+    function sendpushvalidation(token){
+        var funcionresponse;
+        const message = {
+        data: {
+             type : "validacion"
+          },
+          token: token        
+             
+        };        
+          admin.messaging().send(message)
+          .then((response) => {
+            
+
+            // Response is a message ID string.
+            console.log('Successfully sent message:', response);
+            funcionresponse = true;
+          })
+          .catch((error) => {
+            console.log('Error sending message:', error);
+            funcionresponse = false;
           });
           return new Promise(resolve => {
             setTimeout(() => {
