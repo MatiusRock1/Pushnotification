@@ -13,10 +13,10 @@ const GroupsSchema = new Schema({
 
 const DevicesShema = new Schema({
     aplication : String,
-    platform : [{
+    platform : {
         type: Schema.ObjectId,
         ref: "Platform"
-    }],
+    },
     createdate : Date,
     token : String,    
     status : {

@@ -4,7 +4,7 @@
   "description": "la idea de este mini proyecto es solucionar el problema de nottifca sundevs",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "set NODE_ENV=develoment&& nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "dotenv": "^16.0.0",
     "nodemon": "^2.0.12"
   }
 }
