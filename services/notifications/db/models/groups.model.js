@@ -2,21 +2,18 @@ const moongose = require('mongoose')
 const Schema = moongose.Schema;
 
 
-const devicesSchema = new Schema({
-    iddevice : ObjectId,
-    status : {
-        type : Boolean,
-        default: true
-    }
-});
 
-const topicsShema = new Schema({
+const groupsShema = new Schema({
     name : String,
     createdate : Date,       
     status : {
         type : Boolean,
         default: true
-    } 
+    },
+    devices:[{
+        type:Schema.ObjectId,
+        ref:"Devices"
+    }]
 
 });
 
