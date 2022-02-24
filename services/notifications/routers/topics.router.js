@@ -1,8 +1,7 @@
 const express = require('express');
+const TopicsController = require('../controller/topics.controller');
 
-const DevicesController = require('../controller/devices.controller');
-
-const service = new DevicesController();
+const service = new TopicsController();
 const router = express.Router();
 
 
@@ -10,8 +9,8 @@ router.post('/',
  async (req, res, next) => {
   try {
     const body = req.body;
-    const newdevices=await service.create(body);
-    res.status(201).json(newdevices);
+    const newtopics=await service.create(body);
+    res.status(201).json(newtopics);
   } catch (error) {
     next(error);
   }

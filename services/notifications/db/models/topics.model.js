@@ -17,4 +17,4 @@ const topicsShema = new Schema({
 
 });
 
-module.exports = moongose.model('topics' , topicsShema);
+module.exports = moongose.model('Topics' , topicsShema);

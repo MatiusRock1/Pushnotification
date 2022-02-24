@@ -1,6 +1,6 @@
 const Model = require('../db/models/devices.model');
 
-class DevicesController{
+class DevicesService{
 
 constructor(){
 
@@ -15,5 +15,5 @@ async create(data){
 
 }
 
-module.exports = DevicesController;
+module.exports = DevicesService;
 

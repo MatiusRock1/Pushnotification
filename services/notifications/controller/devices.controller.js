@@ -1,4 +1,4 @@
-const Model = require('../db/models/devices.model');
+
 const DevicesService = require('../services/devices.services');
 const service = new DevicesService();
 
