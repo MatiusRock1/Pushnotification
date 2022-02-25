@@ -14,7 +14,7 @@ async create(data){
 
 }
 async registerDeviceTopic(id,data){
-    const registerDeviceTopics = await service.registerDeviceTopics(id,data);
+    const registerDeviceTopics = await service.registerDeviceinTopics(id,data);
     return registerDeviceTopics;
 }
 

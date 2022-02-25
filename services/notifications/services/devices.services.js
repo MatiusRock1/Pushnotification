@@ -21,7 +21,16 @@ async findOneReturntoken(id){
         } 
     return deviceToken;
 }
-
+async findUpdateDevicesTopic(id,idTopic){
+    const devices = await devicesModel.findOneAndUpdate(
+        {_id:id},
+        {$push:{topics:idTopic}},
+        {new:true}
+    );
+    console.log(devices);
+    return devices;
+}
+    
 
 }
 

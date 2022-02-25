@@ -28,10 +28,10 @@ async findOne(id){
     } 
     return deviceTopics;
 }
-async registerDeviceTopics(id,data){ 
+async registerDeviceinTopics(idTopic,data){ 
     const deviceid=data.device;
     const token = await serviceDevices.findOneReturntoken(deviceid);      
-    const deviceTopics = await this.findOne(id);    
+    const deviceTopics = await this.findOne(idTopic);    
     if(deviceTopics.devices.includes(deviceid)) {
         throw boom.badRequest('dispositivo ya registrado en el topic');
     } 
@@ -40,6 +40,7 @@ async registerDeviceTopics(id,data){
         $push:{devices:deviceid}
         }
     );    
+    const deviceUpdateTopic = await serviceDevices.findUpdateDevicesTopic(deviceid,idTopic); 
     const response = {Response : 0};
     return response;    
 }
