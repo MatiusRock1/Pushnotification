@@ -13,6 +13,11 @@ async create(data){
     return newtopics;
 
 }
+async registerDeviceTopic(id,data){
+    const registerDeviceTopics = await service.registerDeviceTopics(id,data);
+    return registerDeviceTopics;
+}
+
 
 
 }
