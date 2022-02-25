@@ -14,11 +14,12 @@ router.post('/',
     next(error);
   }
 });
-router.post('/device/:id',
+router.post('/:id/device',
 async(req,res,next) =>{
   try {
     const body = req.body;
     const id= req.params.id;
+    console.log(id);
     const newDeviceTopic= await controller.registerDeviceTopic(id,body);
     res.status(201).json(newDeviceTopic);
 

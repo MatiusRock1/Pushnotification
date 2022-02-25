@@ -1,9 +1,11 @@
 const { model } = require('mongoose');
 const topicsModel = require('../db/models/topics.model');
 const Firebaseservice = require('./firebase.service');
+const DevicesService = require('./devices.services');
 const boom = require('@hapi/boom');
 
-serviceFirebase = new Firebaseservice();
+const serviceFirebase = new Firebaseservice();
+const serviceDevices= new DevicesService();
 
 class TopicsService{
 
@@ -17,23 +19,27 @@ async create(data){
 
 }
 async findOne(id){
+    console.log(id);
     const deviceTopics = await topicsModel.findOne({
         _id: id
     });  
+    if(!deviceTopics){
+        throw boom.notFound("topic no existe");
+    } 
     return deviceTopics;
 }
 async registerDeviceTopics(id,data){ 
-    const device=data.device;
-    const deviceTopics = await this.findOne(id);   
-    if(deviceTopics.devices.includes(data.device)) {
+    const deviceid=data.device;
+    const token = await serviceDevices.findOneReturntoken(deviceid);      
+    const deviceTopics = await this.findOne(id);    
+    if(deviceTopics.devices.includes(deviceid)) {
         throw boom.badRequest('dispositivo ya registrado en el topic');
     } 
-    await serviceFirebase.registerDeviceinTopic(data.token,deviceTopics.name);
+    await serviceFirebase.registerDeviceinTopic(token,deviceTopics.name);
     await deviceTopics.updateOne({
-        $push:{devices:device}
+        $push:{devices:deviceid}
         }
-        );
-    
+    );    
     const response = {Response : 0};
     return response;    
 }
