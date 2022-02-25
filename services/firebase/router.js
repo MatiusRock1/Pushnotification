@@ -1,4 +1,6 @@
 var firebasecontructor = require('../firebase/firebase');
+
+
 exports.registerintopic = async function (req, res, next) {
     var token = req.body.token;
     var topic = req.body.topic;

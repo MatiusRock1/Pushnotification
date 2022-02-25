@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/MatiusRock1/Firebasepush#readme",
   "dependencies": {
+    "@hapi/boom": "^9.1.4",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "firebase-admin": "^9.11.1",
