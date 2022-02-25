@@ -5,9 +5,7 @@ const DevicesController = require('../controller/devices.controller');
 const controller = new DevicesController();
 const router = express.Router();
 
-router.get('/',async (req, res, next) => {
-  
-});
+
 
 router.get('/token/:id',async (req, res, next) => {
   try {
@@ -22,6 +20,14 @@ router.get('/:id',async (req, res, next) => {
   try {
     const deviceId = req.params.id;
     const devices = await controller.findById(deviceId);
+    res.status(200).json(devices);
+  } catch (error) {
+    next(error);
+  }
+});
+router.get('/',async (req, res, next) => {
+  try {
+    const devices = await controller.all();
     res.status(200).json(devices);
   } catch (error) {
     next(error);

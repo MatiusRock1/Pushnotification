@@ -21,6 +21,10 @@ async findById(id){
     const device = await serviceDevices.findById(id);
     return device;
 }
+async all(){
+    const devices = await serviceDevices.alldevices();
+    return devices;
+}
 
 
 

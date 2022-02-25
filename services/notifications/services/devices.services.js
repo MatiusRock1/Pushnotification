@@ -15,6 +15,11 @@ async create(data){
     const newdevices = new devicesModel(data);
     return newdevices.save() ;
 }
+async alldevices(){
+    console.log('hola');
+    const devices = await devicesModel.find();
+    return devices;
+}
 async findByToken(token){
     const deviceByToken = await devicesModel.findOne(
         {token:token}
