@@ -9,15 +9,24 @@ constructor(){
 
 async create(data){    
     const device = await this.findByToken(data.token);
+    if(device){
+        throw boom.badRequest('dispositivo ya existe');
+    }
     const newdevices = new devicesModel(data);
     return newdevices.save() ;
 }
 async findByToken(token){
     const deviceByToken = await devicesModel.findOne(
         {token:token}
+    )    
+    return deviceByToken;
+}
+async findById(id){
+    const deviceByToken = await devicesModel.findOne(
+        {_id:id}
     )
-    if(deviceByToken){
-        throw boom.badRequest('dispositivo ya existe');
+    if(!deviceByToken){
+        throw boom.badRequest('dispositivo no existe');
     }
     return deviceByToken;
 }
