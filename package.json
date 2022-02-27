@@ -4,7 +4,8 @@
   "description": "la idea de este mini proyecto es solucionar el problema de nottifca sundevs",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
