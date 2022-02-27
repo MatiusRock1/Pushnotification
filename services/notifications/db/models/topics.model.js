@@ -5,7 +5,10 @@ const Schema = moongose.Schema;
 
 const topicsShema = new Schema({
     name : String,
-    createdate : Date,       
+    createdate : {
+        type: Date,
+        default: () => Date.now()
+    },        
     status : {
         type : Boolean,
         default: true

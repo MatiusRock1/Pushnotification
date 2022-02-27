@@ -1,13 +1,13 @@
 const moongose = require('mongoose');
 const Schema = moongose.Schema;
 
-const TypeSchema = new Schema({
+const TypeSchema = {
     name: String,
     url_image:String,
     url_video: String,
     screenid: String,
-});
-const ObjectiveSchema = new Schema({
+};
+const ObjectiveSchema = {
     name: String,
     idDevice:{
         type: Schema.ObjectId,
@@ -17,30 +17,26 @@ const ObjectiveSchema = new Schema({
         type:Schema.ObjectId,
         ref: "Topics"
     }
-});
-const SoundSchema = new Schema({
+};
+const SoundSchema = {
     isTrue:{
         type: Boolean,
         default: true
     },
-    url_Sound: String,
-});
-const ScheduletionSchema = new Schema({
+    url_sound: String,
+};
+const ScheduletionSchema = {
     isTrue:{
         type: Boolean,
-        default: true
+        default: false
     },
     date: Date,
-});
+};
 const DevicesShema = new Schema({
     name : String,
     description: String,
     type: TypeSchema,
     Objetive: ObjectiveSchema,
-    platform : {
-        type: Schema.ObjectId,
-        ref: "Platform"
-    },
     createdate : {
         type: Date,
         default: () => Date.now()

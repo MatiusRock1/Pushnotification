@@ -7,7 +7,10 @@ const DevicesShema = new Schema({
         type: Schema.ObjectId,
         ref: "Platform"
     },
-    createdate : Date,
+    createdate : {
+        type: Date,
+        default: () => Date.now()
+    },  
     token : String,    
     status : {
         type : Boolean,
