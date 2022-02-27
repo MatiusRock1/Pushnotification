@@ -10,8 +10,9 @@ constructor(){
 }
 
 async create(data){    
-    const newMessage =await new messageModel(data);
-    return newMessage;
+    console.log(data);
+    const newMessage =new messageModel(data);
+    return newMessage.save();
 }
     
 

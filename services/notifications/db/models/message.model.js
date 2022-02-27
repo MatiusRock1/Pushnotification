@@ -7,16 +7,16 @@ const TypeSchema = {
     url_video: String,
     screenid: String,
 };
-const ObjectiveSchema = {
+const targetSchema = {
     name: String,
-    idDevice:{
+    devices:[{
         type: Schema.ObjectId,
         ref: "Devices"
-    },
-    idTopic:{
-        type:Schema.ObjectId,
+    }],
+    topics:[{
+        type: Schema.ObjectId,
         ref: "Topics"
-    }
+    }]
 };
 const SoundSchema = {
     isTrue:{
@@ -36,7 +36,7 @@ const DevicesShema = new Schema({
     name : String,
     description: String,
     type: TypeSchema,
-    Objetive: ObjectiveSchema,
+    target: targetSchema,
     createdate : {
         type: Date,
         default: () => Date.now()
