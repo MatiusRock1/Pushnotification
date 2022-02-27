@@ -1,2 +1,2 @@
 # Firebasepush
-la idea de este mini proyecto es solucionar el problema de nottifca sundevs
+la idea de este mini proyecto es solucionar el problema un administrador de notificaciones
