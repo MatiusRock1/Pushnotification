@@ -4,7 +4,7 @@
   "description": "la idea de este mini proyecto es solucionar el problema de nottifca sundevs",
   "main": "index.js",
   "scripts": {
-    "dev": "set NODE_ENV=develoment&& nodemon app.js"
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
     "@hapi/boom": "^9.1.4",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "firebase-admin": "^9.11.1",
+    "firebase-admin": "^10.0.2",
     "mongoose": "^6.0.4",
     "morgan": "^1.10.0"
   },

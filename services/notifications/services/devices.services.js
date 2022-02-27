@@ -16,7 +16,6 @@ async create(data){
     return newdevices.save() ;
 }
 async alldevices(){
-    console.log('hola');
     const devices = await devicesModel.find();
     return devices;
 }

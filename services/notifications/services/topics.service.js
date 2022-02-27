@@ -13,10 +13,27 @@ constructor(){
    
 }
 
-async create(data){    
+async create(data){ 
+    data.name = data.name.toLowerCase(); 
+    const validationname= await this.finByName(data.name);
+    console.log(validationname);  
+    if(validationname){
+        throw boom.badRequest("topic ya existe");
+    } 
     const newtopics = new topicsModel(data);
     return newtopics.save() ;
 
+}
+async allTopics(){
+    const topics= await topicsModel.find();
+    return topics;
+}
+async allTopicsOnlyName(){
+    const topics= await topicsModel.find().select({        
+            name:1,
+            _id : 1        
+    });
+    return topics;
 }
 async findOne(id){
     console.log(id);
@@ -26,6 +43,13 @@ async findOne(id){
     if(!deviceTopics){
         throw boom.notFound("topic no existe");
     } 
+    return deviceTopics;
+}
+async finByName(name){
+    const deviceTopics = await topicsModel.findOne({
+        name: name
+    });  
+    
     return deviceTopics;
 }
 async registerDeviceinTopics(idTopic,data){ 

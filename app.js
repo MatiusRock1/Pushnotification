@@ -21,8 +21,9 @@ app.use(morgan('dev'));
 
 //configuracion de variables de entorno
 dotenv.config({
-    path: path.resolve(__dirname,process.env.NODE_ENV + '.env')
+    path: path.resolve(__dirname,'.env')
 });
+console.log()
 //mongose
 db.connectMongoDB(process.env.Mondodb);
 //Routers
