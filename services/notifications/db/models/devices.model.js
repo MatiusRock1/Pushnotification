@@ -1,16 +1,6 @@
 const moongose = require('mongoose');
 const Schema = moongose.Schema;
 
-/*const TopicSchema = new Schema({
-    idtopic : ObjectId,
-    ref: "Topics"
-});
-
-const GroupsSchema = new Schema({
-    
-}) */
-
-
 const DevicesShema = new Schema({
     aplication : String,
     platform : {

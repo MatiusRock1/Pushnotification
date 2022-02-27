@@ -25,6 +25,10 @@ async all(){
     const devices = await serviceDevices.alldevices();
     return devices;
 }
+async deviceIncludeTopicName(id){
+    const device = await serviceDevices.deviceIncludeTopicName(id);
+    return device;
+}
 
 
 

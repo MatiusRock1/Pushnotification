@@ -1,5 +1,7 @@
 const devicesModel = require('../db/models/devices.model');
+const { populate } = require('../db/models/devices.model');
 const boom = require('@hapi/boom');
+
 
 class DevicesService{
 
@@ -39,10 +41,27 @@ async findOneReturntoken(id){
         {_id: id},
         {token: 1}
         );  
-        if(!deviceToken){
-            throw boom.notFound("Dispositivo no existe");
+        if(!deviceToken){populate
+            throw boom.notFound('Dispositivo no existe');
         } 
     return deviceToken;
+}
+async deviceIncludeTopicName(id){
+    return new Promise((resolve,reject)=>{
+        devicesModel.findOne(
+            {_id:id}
+        )
+        .populate('topics',{
+            name:1
+        })
+        .exec((error,populated) =>{
+            if(error){
+                console.log(error);
+            }
+            resolve(populated);
+        });
+
+    });
 }
 async findUpdateDevicesTopic(id,idTopic){
     const devices = await devicesModel.findOneAndUpdate(

@@ -35,6 +35,17 @@ async(req,res,next) =>{
     next(error);
   }
 })
+router.get('/:id',
+async(req,res,next) =>{
+  try {        
+    const id = req.params.id;
+    const Topic= await controllerTopics.topicById(id);
+    res.status(200).json(Topic);
+
+  } catch (error) {
+    next(error);
+  }
+})
 router.get('/name/',
 async(req,res,next) =>{
   try {        
@@ -45,7 +56,7 @@ async(req,res,next) =>{
     next(error);
   }
 })
-router.post('/:id/device',
+router.post('/:id/device/',
 async(req,res,next) =>{
   try {
     const body = req.body;

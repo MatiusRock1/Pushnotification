@@ -35,14 +35,13 @@ async allTopicsOnlyName(){
     });
     return topics;
 }
+
 async findOne(id){
     console.log(id);
     const deviceTopics = await topicsModel.findOne({
         _id: id
     });  
-    if(!deviceTopics){
-        throw boom.notFound("topic no existe");
-    } 
+    
     return deviceTopics;
 }
 async finByName(name){
@@ -55,7 +54,10 @@ async finByName(name){
 async registerDeviceinTopics(idTopic,data){ 
     const deviceid=data.device;
     const token = await serviceDevices.findOneReturntoken(deviceid);      
-    const deviceTopics = await this.findOne(idTopic);    
+    const deviceTopics = await this.findOne(idTopic);  
+    if(!deviceTopics){
+        throw boom.notFound("topic no existe");
+    }   
     if(deviceTopics.devices.includes(deviceid)) {
         throw boom.badRequest('dispositivo ya registrado en el topic');
     } 

@@ -21,6 +21,10 @@ async allOnlyName(){
     const topics = await serviceTopics.allTopicsOnlyName();
     return topics;
 }
+async topicById(id){
+    const topic= await serviceTopics.findOne(id);
+    return topic;
+}
 async findByName(data){
     const topics = await serviceTopics.finByName(data);
     return topics;
