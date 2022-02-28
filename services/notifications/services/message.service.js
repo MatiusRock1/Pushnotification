@@ -4,8 +4,9 @@ const boom = require('@hapi/boom');
 const FirebaseService = require('./firebase.service');
 const serviceFirebase = new FirebaseService();
 const TopicsService = require('./topics.service');
-const { shallowCopyFromList } = require('ejs/lib/utils');
 const serviceTopics = new TopicsService();
+const DevicesService = require('./devices.services');
+const serviceDevices = new DevicesService();
 
 
 
@@ -18,6 +19,7 @@ constructor(){
 async create(data){    
     const topics = data.target.topics;
     const targetname= data.target.name; 
+    const device = data.target.device;
 
     
     var firebaseTopicsResponse = [];
@@ -31,8 +33,17 @@ async create(data){
             value += 1;
         }
        break;
-       case 'device':
-        console.log('El kilogramo de naranjas cuesta $0.59.');
+       case 'device':     
+       const devicesList = await serviceDevices.findById(device);
+       console.log(devicesList);
+       firebaseTopicsResponse.push(await serviceFirebase.sendMessageToken(devicesList.token,data.name,data.description))
+        break;
+       case groups :
+        var deviceListArray = [];
+        for(let value of devicesList){
+             deviceListArray.push(value.token);
+             value+=1;
+        }
        break;
         default:
             throw boom.badGateway("data en target incorrecta")

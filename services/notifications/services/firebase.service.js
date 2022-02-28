@@ -54,10 +54,31 @@ async sendMessageTopic(topic,title,body){
       return funcionresponse;
     }
 
-    async listMessageFirebase(){
-        
-    
-}
+    async sendMessageToken(token,title,body){
+      console.log(token);
+      var funcionresponse;
+            const message = {
+                notification: {
+                    title: title,
+                    body: body
+                  },     
+              data: {
+                //volume : "3.21.15",
+                type : "messagetopic"
+              },
+              token: token    
+            };        
+            await adminSdkFirebase.messaging().send(message)
+              .then((response) => {
+                console.log('Successfully sent message:', response);
+                funcionresponse = { token : token,response };
+              })
+              .catch((error) => {
+                console.log('Error sending message:', error);
+                throw boom.badGateway('error al enviar mensaje a topic')
+              });
+          return funcionresponse;
+        }
 }
 
 
