@@ -11,8 +11,9 @@ constructor(){
 }
 
 async registerDeviceinTopic(token,topic){
+  console.log(token);
     const registrationTokens = [
-        token
+        token.token
       ];      
       await adminSDKFirebase.messaging().subscribeToTopic(registrationTokens, topic)
         .then((response) => {          
