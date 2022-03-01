@@ -11,6 +11,7 @@
 <body>
   
   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-analytics.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-messaging.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   
@@ -28,7 +29,31 @@
 
     };
     firebase.initializeApp(firebaseConfig);
+    const analytics = firebase.analytics();
     const messaging=firebase.messaging();
+
+    messaging.onMessage((payload) => {
+        
+        firebase.analytics().logEvent('notification_received');
+        if (payload.data.type == "nottification"){
+        firebase.analytics().logEvent('notification_received');
+        console.log(payload);
+        const notificationOption={
+            body:payload.notification.body,
+            icon:payload.notification.icon
+        };
+
+        if(Notification.permission==="granted"){            
+            console.log(payload);
+            var notification=new Notification(payload.notification.title,notificationOption);
+            notification.onclick=function (ev) {
+                ev.preventDefault();
+                window.open(payload.notification.click_action,'_blank');
+                notification.close();
+            }
+        }
+    }
+    });
 
     function IntitalizeFireBaseMessaging() {
         messaging
@@ -40,33 +65,14 @@
             .then(function (token) {
                 console.log("Token : "+token);
                 tokenweb = token;
-                document.getElementById("token").innerHTML=token;
             })
             .catch(function (reason) {
                 console.log(reason);
             });
     }
 
-    messaging.onMessage(function (payload) {
-
-        if (payload.data.type == "nottification"){
-        console.log(payload);
-        const notificationOption={
-            body:payload.notification.body,
-            icon:payload.notification.icon
-        };
-
-        if(Notification.permission==="granted"){
-            var notification=new Notification(payload.notification.title,notificationOption);
-
-            notification.onclick=function (ev) {
-                ev.preventDefault();
-                window.open(payload.notification.click_action,'_blank');
-                notification.close();
-            }
-        }
-    }
-    });
+   
+    
     messaging.onTokenRefresh(function () {
         messaging.getToken()
             .then(function (newtoken) {

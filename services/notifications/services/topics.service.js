@@ -37,7 +37,6 @@ async allTopicsOnlyName(){
 }
 
 async findOne(id){
-    console.log(id);
     const deviceTopics = await topicsModel.findOne({
         _id: id
     });  
@@ -51,8 +50,9 @@ async finByName(name){
     
     return deviceTopics;
 }
-async registerDeviceinTopics(idTopic,data){ 
-    const deviceid=data.device;
+async registerDeviceinTopics(idTopic,data) { 
+    try {
+        const deviceid=data.device;
     const token = await serviceDevices.findOneReturntoken(deviceid);      
     const deviceTopics = await this.findOne(idTopic);  
     if(!deviceTopics){
@@ -69,6 +69,10 @@ async registerDeviceinTopics(idTopic,data){
     const deviceUpdateTopic = await serviceDevices.findUpdateDevicesTopic(deviceid,idTopic); 
     const response = {Response : 0};
     return response;    
+    } catch (error) {
+        throw boom.badGateway(' error al registrar token');
+    }
+    
 }
 }
 

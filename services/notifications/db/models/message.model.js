@@ -9,10 +9,10 @@ const TypeSchema = {
 };
 const targetSchema = {
     name: String,
-    devices:[{
+    device:{
         type: Schema.ObjectId,
         ref: "Devices"
-    }],
+    },
     topics:[{
         type: Schema.ObjectId,
         ref: "Topics"

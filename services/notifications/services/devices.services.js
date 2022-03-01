@@ -21,6 +21,14 @@ async alldevices(){
     const devices = await devicesModel.find();
     return devices;
 }
+async alldevicesFilterId(filter){
+    console.log(filter);
+    const devices = await devicesModel.find(
+        {_id: filter},
+        {token:1}
+        );
+    return devices;
+}
 async findByToken(token){
     const deviceByToken = await devicesModel.findOne(
         {token:token}
