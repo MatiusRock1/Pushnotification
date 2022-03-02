@@ -5,10 +5,10 @@ const MessageController = require('../controller/message.controller');
 const controllerMessage = new MessageController();
 const router = express.Router();
 
-router.get('/',
+router.get('/topics',
 async (req,res,next) =>{
   try {
-    const message = await controllerMessage.getAllMessageNumberDevices();
+    const message = await controllerMessage.getAllMessageNumberDevicesTopics();
     res.status(200).json(message);
   } catch (error) {
     next(error);
