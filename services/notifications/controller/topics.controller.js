@@ -33,6 +33,10 @@ async registerDeviceTopic(id,data){
     const registerDeviceTopics = await serviceTopics.registerDeviceinTopics(id,data);
     return registerDeviceTopics;
 }
+async unRegisterDeviceTopic(id,data){
+    const unRegisterDeviceinTopic = await serviceTopics.unRegisterDeviceinTopics(id,data);
+    return unRegisterDeviceinTopic;
+}
 async getAllTopicsNumberDevices(){
     const filter = {        
         name: 1,

@@ -14,7 +14,6 @@ constructor(){
 }
 
 async registerDeviceinTopic(token,topic){
-  console.log(token);
     const registrationTokens = [
         token.token
       ];               
@@ -27,6 +26,25 @@ async registerDeviceinTopic(token,topic){
           console.log('Error subscribing to topic:', error);
           throw boom.badGateway('error al registrar token en topic firebase');
         });  
+}
+async unRegisterDeviceinTopic(token,topic){
+  // These registration tokens come from the client FCM SDKs.
+const registrationTokens = [
+  token.token
+];
+
+// Unsubscribe the devices corresponding to the registration tokens from
+// the topic.
+
+await adminSdkFirebase.messaging().unsubscribeFromTopic(registrationTokens, topic)
+  .then((response) => {  
+    console.log('Successfully unsubscribed from topic:', response);
+  })
+  .catch((error) => {
+    console.log('Error unsubscribing from topic:', error);
+    throw boom.badGateway('error al registrar token en topic firebase');
+  });
+
 }
 
 async sendMessageTopic(topic,title,body){

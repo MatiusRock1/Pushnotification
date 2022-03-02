@@ -35,6 +35,18 @@ async(req,res,next) =>{
     next(error);
   }
 });
+router.delete('/:id/device/',
+async(req,res,next) =>{
+try {
+  const body = req.body;
+    const id= req.params.id;
+    console.log(id);
+    const DeviceTopic= await controllerTopics.unRegisterDeviceTopic(id,body);
+    res.status(201).json(DeviceTopic);
+} catch (error) {
+  next(error);
+}
+});
 
 router.get('/:id',
 async(req,res,next) =>{

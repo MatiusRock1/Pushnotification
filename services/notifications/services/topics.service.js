@@ -3,6 +3,7 @@ const topicsModel = require('../db/models/topics.model');
 const Firebaseservice = require('./firebase.service');
 const DevicesService = require('./devices.services');
 const boom = require('@hapi/boom');
+const { query } = require('express');
 
 const serviceFirebase = new Firebaseservice();
 const serviceDevices= new DevicesService();
@@ -61,7 +62,7 @@ async finByName(name){
 }
 async registerDeviceinTopics(idTopic,data) { 
     try {
-        const deviceid=data.device;
+    const deviceid=data.device;
     const token = await serviceDevices.findOneReturntoken(deviceid);      
     const deviceTopics = await this.findOne(idTopic);  
     if(!deviceTopics){
@@ -83,7 +84,37 @@ async registerDeviceinTopics(idTopic,data) {
     }
     
 }
+
+async unRegisterDeviceinTopics(idTopic,data){
+    try {
+        const deviceid=data.device;
+        const token = await serviceDevices.findOneReturntoken(deviceid);      
+        const deviceTopics = await this.findOne(idTopic);  
+        if(!deviceTopics){
+            throw boom.notFound("topic no existe");
+        }
+        console.log(deviceTopics.devices);
+        if(!deviceTopics.devices.includes(deviceid)) {            
+            throw boom.badRequest('dispositivo no esta registrado en el topic');
+        }
+        await serviceFirebase.unRegisterDeviceinTopic(token,deviceTopics.name);
+        console.log(deviceTopics);
+        console.log(deviceid);
+        await deviceTopics.updateOne({
+            $pull:{devices:deviceid}
+        });
+        console.log(deviceid);
+        const deviceUpdateTopic=await serviceDevices.findUpdateDevicesTopicDelete(deviceid,idTopic);
+        const response = {Response : 0};
+         return response;    
+
+
+    } catch (error) {
+        throw boom.badGateway(' error al eliminar token');
+    }
+    }
 }
+
 
 module.exports = TopicsService;
 
