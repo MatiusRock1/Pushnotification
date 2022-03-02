@@ -19,9 +19,7 @@ constructor(){
 async create(data){    
     const topics = data.target.topics;
     const targetname= data.target.name; 
-    const device = data.target.device;
-
-    
+    const device = data.target.device;    
     var firebaseTopicsResponse = [];
     switch(targetname){
        case 'topic':
@@ -49,18 +47,74 @@ async create(data){
             throw boom.badGateway("data en target incorrecta")
         break;
             
-    }
-    
-    
+    }  
     
     const newMessage =new messageModel(data);
     newMessage.save();
     const response = {result: 0 , send : firebaseTopicsResponse}
     return response;
 }
-    
 
+async getAllMessageNumberDeviceTopics(){
+   /*
+    const messages= await messageModel.find({
+        "target.name" : "topics"
+    })
+    .populate('target.topics');
+*/
+
+const messages= await messageModel.aggregate([
+    {
+        $match: {
+            "target.name" : "topics"
+        },
+    },
+    {
+        $lookup: {
+        from: 'topics',
+        localField: 'target.topics',
+        foreignField: '_id',
+        as: 'topicsDevice'
+    },
+},
+{ $project: { name: 1, description: 1,"topicsDevice.name":1, "topicsDevice.devices" :{$size:"$topicsDevice.devices"} } },
+]);
+return {messages :messages};
+
+    
+    
+    
+    
 }
+async populateAllMessageTopics(){
+    const messages= messageModel.find({
+        "target.name" : "topics"
+    });
+    await messages.populate('target.topics');
+
+    /*return new Promise((resolve,reject)=>{               
+        messageModel.find({
+            "target.name" : "topics"
+        })
+        .populate('target.topics',{            
+        })
+        .project(filter)
+        .exec((error,populated) =>{
+            resolve(populated);
+        })         
+        });   */
+}
+async returnNumberDeviceInTopic(){
+    return new Promise((resolve,reject)=>{       
+        topicsModel.aggregate()
+        .project(filter)
+        .exec( function(err, topics) {
+            resolve(topics);
+        });  
+        });
+}
+}
+
 
 module.exports = MessageService;
 

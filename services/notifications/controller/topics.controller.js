@@ -33,10 +33,21 @@ async registerDeviceTopic(id,data){
     const registerDeviceTopics = await serviceTopics.registerDeviceinTopics(id,data);
     return registerDeviceTopics;
 }
-
-
-
+async getAllTopicsNumberDevices(){
+    const filter = {        
+        name: 1,
+        status: 1,
+        devices: {$size:"$devices"}        
 }
+const message = await serviceTopics.allTopicsnNumberDevice(filter);
+console.log(message);
+return { topics : message};
+}
+}
+
+
+
+
 
 module.exports = TopicsController;
 

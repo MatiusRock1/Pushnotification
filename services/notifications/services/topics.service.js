@@ -24,9 +24,18 @@ async create(data){
     return newtopics.save() ;
 
 }
-async allTopics(){
-    const topics= await topicsModel.find();
-    return topics;
+async allTopics(filter){    
+    const topics= await topicsModel.find(filter);
+    return topics;    
+}
+async allTopicsnNumberDevice(filter){
+    return new Promise((resolve,reject)=>{       
+    topicsModel.aggregate()
+    .project(filter)
+    .exec( function(err, topics) {
+        resolve(topics);
+    });  
+    });
 }
 async allTopicsOnlyName(){
     const topics= await topicsModel.find().select({        

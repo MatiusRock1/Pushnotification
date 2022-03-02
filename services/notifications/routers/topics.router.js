@@ -28,13 +28,14 @@ async(req,res,next) =>{
 router.get('/',
 async(req,res,next) =>{
   try {        
-    const Topic= await controllerTopics.all();
+    const Topic= await controllerTopics.getAllTopicsNumberDevices();
     res.status(200).json(Topic);
 
   } catch (error) {
     next(error);
   }
-})
+});
+
 router.get('/:id',
 async(req,res,next) =>{
   try {        
