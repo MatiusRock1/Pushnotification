@@ -1,4 +1,4 @@
-const { model } = require('mongoose');
+const mongoose = require('mongoose');
 const topicsModel = require('../db/models/topics.model');
 const Firebaseservice = require('./firebase.service');
 const DevicesService = require('./devices.services');
@@ -29,23 +29,27 @@ async allTopics(filter){
     const topics= await topicsModel.find(filter);
     return topics;    
 }
-async getTopicNumberDevicesConcat(topics){
-   const messages= await topicsModel.aggregate([
+async getTopicNumberDevicesConcat(topics){   
+   topics = topics.map(function(el) { return mongoose.Types.ObjectId(el) })  
+   const TopicsFilter= await topicsModel.aggregate(    
+    [        
+        {
+            $match:{
+             _id: { $in:  topics } 
+        }},
         {
             $group:
             {
                 _id : null,
                 devicesNumber: { $push:   "$devices"}
             }
-
         },
        { $project: { allDevices: { $reduce:{input: "$devicesNumber", initialValue:[],
         in : { $concatArrays: "$$this"}
     } }} },
     { $project: { "devices" :{$size:"$allDevices"} } },
-    ]);
-    const numberDevices = messages[0].devices;
-    console.log(numberDevices);
+    ]);   
+    const numberDevices = TopicsFilter[0].devices;
     return {numberDevices};
 }
 async allTopicsnNumberDevice(filter){
