@@ -19,14 +19,7 @@ const DevicesShema = new Schema({
     topics : [{
         type: Schema.ObjectId,
         ref: "Topics"
-    }],
-    groups : [{
-        type: Schema.ObjectId,
-        ref: "Groups"
-    }],
-    
-    
-    
+    }]     
 
 });
 

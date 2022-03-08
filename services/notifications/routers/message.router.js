@@ -5,6 +5,17 @@ const MessageController = require('../controller/message.controller');
 const controllerMessage = new MessageController();
 const router = express.Router();
 
+router.get('/topics',
+async (req,res,next) =>{
+  try {
+    const message = await controllerMessage.getAllMessageNumberDevicesTopics();
+    res.status(200).json(message);
+  } catch (error) {
+    next(error);
+  }
+})
+
+
 router.post('/',
  async (req, res, next) => {
   try {

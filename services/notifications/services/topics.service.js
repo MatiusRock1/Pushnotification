@@ -1,8 +1,9 @@
-const { model } = require('mongoose');
+const mongoose = require('mongoose');
 const topicsModel = require('../db/models/topics.model');
 const Firebaseservice = require('./firebase.service');
 const DevicesService = require('./devices.services');
 const boom = require('@hapi/boom');
+const { query } = require('express');
 
 const serviceFirebase = new Firebaseservice();
 const serviceDevices= new DevicesService();
@@ -24,9 +25,41 @@ async create(data){
     return newtopics.save() ;
 
 }
-async allTopics(){
-    const topics= await topicsModel.find();
-    return topics;
+async allTopics(filter){    
+    const topics= await topicsModel.find(filter);
+    return topics;    
+}
+async getTopicNumberDevicesConcat(topics){   
+   topics = topics.map(function(el) { return mongoose.Types.ObjectId(el) })  
+   const TopicsFilter= await topicsModel.aggregate(    
+    [        
+        {
+            $match:{
+             _id: { $in:  topics } 
+        }},
+        {
+            $group:
+            {
+                _id : null,
+                devicesNumber: { $push:   "$devices"}
+            }
+        },
+       { $project: { allDevices: { $reduce:{input: "$devicesNumber", initialValue:[],
+        in : { $concatArrays: "$$this"}
+    } }} },
+    { $project: { "devices" :{$size:"$allDevices"} } },
+    ]);   
+    const numberDevices = TopicsFilter[0].devices;
+    return numberDevices;
+}
+async allTopicsnNumberDevice(filter){
+    return new Promise((resolve,reject)=>{       
+    topicsModel.aggregate()
+    .project(filter)
+    .exec( function(err, topics) {
+        resolve(topics);
+    });  
+    });
 }
 async allTopicsOnlyName(){
     const topics= await topicsModel.find().select({        
@@ -52,7 +85,7 @@ async finByName(name){
 }
 async registerDeviceinTopics(idTopic,data) { 
     try {
-        const deviceid=data.device;
+    const deviceid=data.device;
     const token = await serviceDevices.findOneReturntoken(deviceid);      
     const deviceTopics = await this.findOne(idTopic);  
     if(!deviceTopics){
@@ -74,7 +107,37 @@ async registerDeviceinTopics(idTopic,data) {
     }
     
 }
+
+async unRegisterDeviceinTopics(idTopic,data){
+    try {
+        const deviceid=data.device;
+        const token = await serviceDevices.findOneReturntoken(deviceid);      
+        const deviceTopics = await this.findOne(idTopic);  
+        if(!deviceTopics){
+            throw boom.notFound("topic no existe");
+        }
+        console.log(deviceTopics.devices);
+        if(!deviceTopics.devices.includes(deviceid)) {            
+            throw boom.badRequest('dispositivo no esta registrado en el topic');
+        }
+        await serviceFirebase.unRegisterDeviceinTopic(token,deviceTopics.name);
+        console.log(deviceTopics);
+        console.log(deviceid);
+        await deviceTopics.updateOne({
+            $pull:{devices:deviceid}
+        });
+        console.log(deviceid);
+        const deviceUpdateTopic=await serviceDevices.findUpdateDevicesTopicDelete(deviceid,idTopic);
+        const response = {Response : 0};
+         return response;    
+
+
+    } catch (error) {
+        throw boom.badGateway(' error al eliminar token');
+    }
+    }
 }
+
 
 module.exports = TopicsService;
 

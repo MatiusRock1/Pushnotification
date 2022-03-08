@@ -80,6 +80,15 @@ async findUpdateDevicesTopic(id,idTopic){
     console.log(devices);
     return devices;
 }
+async findUpdateDevicesTopicDelete(id,idTopic){
+    const devices = await devicesModel.findOneAndUpdate(
+        {_id:id},
+        {$pull:{topics:idTopic}},
+        {new:true}
+    );
+    console.log(devices);
+    return devices;
+}
     
 
 }

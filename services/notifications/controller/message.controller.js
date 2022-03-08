@@ -13,6 +13,10 @@ async create(data){
     return newMessage;
 
 }
+async getAllMessageNumberDevicesTopics(){
+    const message = await serviceMessage.getAllMessageNumberDeviceTopics();
+    return message;
+}
 
 }
 

@@ -33,10 +33,30 @@ async registerDeviceTopic(id,data){
     const registerDeviceTopics = await serviceTopics.registerDeviceinTopics(id,data);
     return registerDeviceTopics;
 }
-
-
-
+async unRegisterDeviceTopic(id,data){
+    const unRegisterDeviceinTopic = await serviceTopics.unRegisterDeviceinTopics(id,data);
+    return unRegisterDeviceinTopic;
 }
+async getAllTopicsNumberDevices(){
+    const filter = {        
+        name: 1,
+        status: 1,
+        devices: {$size:"$devices"}        
+}
+const message = await serviceTopics.allTopicsnNumberDevice(filter);
+console.log(message);
+return { topics : message};
+}
+async getTopicNunberDevicesConcat(topicsBody){
+    const topicsIds = topicsBody.topicsId;
+    const numberDevices = await serviceTopics.getTopicNumberDevicesConcat(topicsIds);
+    return {numberDevices};
+} 
+}
+
+
+
+
 
 module.exports = TopicsController;
 

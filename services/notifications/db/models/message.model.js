@@ -40,7 +40,8 @@ const DevicesShema = new Schema({
     createdate : {
         type: Date,
         default: () => Date.now()
-    },    
+    },
+    numberDevices: Number,
     status : {
         type : Boolean,
         default: true
