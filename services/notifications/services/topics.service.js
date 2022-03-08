@@ -29,6 +29,25 @@ async allTopics(filter){
     const topics= await topicsModel.find(filter);
     return topics;    
 }
+async getTopicNumberDevicesConcat(topics){
+   const messages= await topicsModel.aggregate([
+        {
+            $group:
+            {
+                _id : null,
+                devicesNumber: { $push:   "$devices"}
+            }
+
+        },
+       { $project: { allDevices: { $reduce:{input: "$devicesNumber", initialValue:[],
+        in : { $concatArrays: "$$this"}
+    } }} },
+    { $project: { "devices" :{$size:"$allDevices"} } },
+    ]);
+    const numberDevices = messages[0].devices;
+    console.log(numberDevices);
+    return {numberDevices};
+}
 async allTopicsnNumberDevice(filter){
     return new Promise((resolve,reject)=>{       
     topicsModel.aggregate()

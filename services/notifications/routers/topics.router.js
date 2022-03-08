@@ -35,18 +35,7 @@ async(req,res,next) =>{
     next(error);
   }
 });
-router.delete('/:id/device/',
-async(req,res,next) =>{
-try {
-  const body = req.body;
-    const id= req.params.id;
-    console.log(id);
-    const DeviceTopic= await controllerTopics.unRegisterDeviceTopic(id,body);
-    res.status(201).json(DeviceTopic);
-} catch (error) {
-  next(error);
-}
-});
+
 
 router.get('/:id',
 async(req,res,next) =>{
@@ -58,7 +47,7 @@ async(req,res,next) =>{
   } catch (error) {
     next(error);
   }
-})
+});
 router.get('/name/',
 async(req,res,next) =>{
   try {        
@@ -68,7 +57,16 @@ async(req,res,next) =>{
   } catch (error) {
     next(error);
   }
-})
+});
+router.get('/test/topics/',
+async(req,res,next)=>{
+  try {
+    const topics= await controllerTopics.getTopicNunberDevicesConcat();
+    res.status(200).json(topics);
+  } catch (error) {
+    next(error);
+  }
+});
 router.post('/:id/device/',
 async(req,res,next) =>{
   try {
@@ -81,7 +79,19 @@ async(req,res,next) =>{
   } catch (error) {
     next(error);
   }
-})
+});
+router.delete('/:id/device/',
+async(req,res,next) =>{
+try {
+  const body = req.body;
+    const id= req.params.id;
+    console.log(id);
+    const DeviceTopic= await controllerTopics.unRegisterDeviceTopic(id,body);
+    res.status(201).json(DeviceTopic);
+} catch (error) {
+  next(error);
+}
+});
 
 
 module.exports = router;

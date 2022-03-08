@@ -47,6 +47,11 @@ const message = await serviceTopics.allTopicsnNumberDevice(filter);
 console.log(message);
 return { topics : message};
 }
+async getTopicNunberDevicesConcat(){
+    const topicsFilter= ["621cc764a5edd3acacf4af83","621d0d90ce944c5dcdb91177"];
+    const topics = await serviceTopics.getTopicNumberDevicesConcat(topicsFilter);
+    return topics;
+} 
 }
 
 
