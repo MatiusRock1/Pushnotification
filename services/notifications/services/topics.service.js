@@ -50,7 +50,7 @@ async getTopicNumberDevicesConcat(topics){
     { $project: { "devices" :{$size:"$allDevices"} } },
     ]);   
     const numberDevices = TopicsFilter[0].devices;
-    return {numberDevices};
+    return numberDevices;
 }
 async allTopicsnNumberDevice(filter){
     return new Promise((resolve,reject)=>{       

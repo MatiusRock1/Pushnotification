@@ -21,9 +21,12 @@ async create(data){
     const targetname= data.target.name; 
     const device = data.target.device;    
     var firebaseTopicsResponse = [];
+    var numberDevice = 0;
     switch(targetname){
        case 'topic':
+        numberDevice = await serviceTopics.getTopicNumberDevicesConcat(topics);
         for (let value of topics){ 
+           
             console.log(value);
             const topicName = await serviceTopics.findOne(value);
             console.log(topicName.name);
@@ -48,7 +51,8 @@ async create(data){
         break;
             
     }  
-    
+    console.log(numberDevice);
+    data.numberDevices=numberDevice;
     const newMessage =new messageModel(data);
     newMessage.save();
     const response = {result: 0 , send : firebaseTopicsResponse}
@@ -56,13 +60,7 @@ async create(data){
 }
 
 async getAllMessageNumberDeviceTopics(){
-   /*
-    const messages= await messageModel.find({
-        "target.name" : "topics"
-    })
-    .populate('target.topics');
-*/
-
+   
 const messages= await messageModel.aggregate([
     {
         $match: {

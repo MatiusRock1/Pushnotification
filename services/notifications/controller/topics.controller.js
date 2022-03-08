@@ -49,8 +49,8 @@ return { topics : message};
 }
 async getTopicNunberDevicesConcat(topicsBody){
     const topicsIds = topicsBody.topicsId;
-    const topics = await serviceTopics.getTopicNumberDevicesConcat(topicsIds);
-    return topics;
+    const numberDevices = await serviceTopics.getTopicNumberDevicesConcat(topicsIds);
+    return {numberDevices};
 } 
 }
 
