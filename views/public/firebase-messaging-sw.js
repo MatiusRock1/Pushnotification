@@ -1,6 +1,8 @@
 importScripts('https://www.gstatic.com/firebasejs/7.14.6/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/7.14.6/firebase-messaging.js');
 
+const messaging=firebase.messaging();
+
 var firebaseConfig = {
     apiKey: "AIzaSyC3GrK6wgCXzACXVOj5zd3bOeirSA5dOeE",
     authDomain: "pruebacloudmessaging-1582e.firebaseapp.com",
@@ -12,19 +14,16 @@ var firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const messaging=firebase.messaging();
 
-messaging.setBackgroundMessageHandler(function (payload) {
-    console.log(payload);
-    console.log(payload.data.type);
-    if (payload.data.type === "nottification"){
-    const notification=JSON.parse(payload);    
-        const notificationOption={
-            body:notification.body,
-            icon:notification.icon
-        };
-        return self.registration.showNotification(payload.notification.title,notificationOption);
-    }    
-    
-    
+messaging.setBackgroundMessageHandler(function(payload) {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  // Customize notification here
+  const notificationTitle = 'Background Message Title';
+  const notificationOptions = {
+    body: 'Background Message body.',
+    icon: './firebase-logo.png'
+  };
+
+  return self.registration.showNotification(notificationTitle,
+    notificationOptions);
 });

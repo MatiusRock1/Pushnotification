@@ -42,16 +42,36 @@ await adminSdkFirebase.messaging().unsubscribeFromTopic(registrationTokens, topi
 }
 
 async sendMessageTopic(topic,title,body){
+  
   var funcionresponse;
         const message = {
             notification: {
                 title: title,
-                body: body
-              },     
+                body: body,                
+                image: "https://s3.us-west-2.amazonaws.com/firebase.matius-rock.com/90586_big-1280x720.jpg",
+                
+              },
+              
+                   
           data: {
-            //volume : "3.21.15",
-            type : "messagetopic"
-          },
+            volume : "3.21.15",
+            contents : "http://www.news-magazine.com/world-week/21659772",
+            icon: "https://firebase.matius-rock.com/images.jpg",
+            sound: "https://firebase.matius-rock.com/wonder_S0Bhneir(1).mp3"
+       },
+       fcm_options: {
+        "analytics_label": "pushtest1"
+      },
+       webpush: {
+        headers: {
+          Urgency: "high"
+        },
+        fcm_options: {
+          "link": "https://firebase.matius-rock.com/wonder.mp3",
+          "analytics_label": "pushtest1web"
+        },
+      },
+  
           topic: topic    
         };        
         await adminSdkFirebase.messaging().send(message)
