@@ -22,6 +22,7 @@ async create(data){
     const device = data.target.device;    
     var firebaseTopicsResponse = [];
     var numberDevice = 0;
+    const image = data.type.url_image
     switch(targetname){
        case 'topic':
         numberDevice = await serviceTopics.getTopicNumberDevicesConcat(topics);
@@ -30,14 +31,14 @@ async create(data){
             console.log(value);
             const topicName = await serviceTopics.findOne(value);
             console.log(topicName.name);
-            firebaseTopicsResponse.push(await serviceFirebase.sendMessageTopic(topicName.name,data.name,data.description));
+            firebaseTopicsResponse.push(await serviceFirebase.sendMessageTopic(topicName.name,data.name,data.description,image));
             value += 1;
         }
        break;
        case 'device':     
        const devicesList = await serviceDevices.findById(device);
        console.log(devicesList);
-       firebaseTopicsResponse.push(await serviceFirebase.sendMessageToken(devicesList.token,data.name,data.description))
+       firebaseTopicsResponse.push(await serviceFirebase.sendMessageToken(devicesList.token,data.name,data.description,image))
         break;
        case groups :
         var deviceListArray = [];

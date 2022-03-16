@@ -3,10 +3,14 @@ const boom = require('@hapi/boom');
 var adminSdkFirebase = require('firebase-admin');
 const { getMessaging } = require('firebase-admin/messaging');
 const serviceAccount = require('../../../path/to/serviceAccountKey.json');
+const dotenv = require('dotenv');
+const path = require('path');
 adminSdkFirebase.initializeApp({
   credential: adminSdkFirebase.credential.cert(serviceAccount),
 }); 
-
+dotenv.config({
+  path: path.resolve(__dirname,'.env')
+});
 class firebaseService{
 
 constructor(){
@@ -41,14 +45,14 @@ await adminSdkFirebase.messaging().unsubscribeFromTopic(registrationTokens, topi
   });
 }
 
-async sendMessageTopic(topic,title,body){
-  
+async sendMessageTopic(topic,title,body,image){
+  const urlImage= process.env.BucketS3 + image;
   var funcionresponse;
         const message = {
             notification: {
                 title: title,
                 body: body,                
-                image: "https://s3.us-west-2.amazonaws.com/firebase.matius-rock.com/90586_big-1280x720.jpg",
+                image: urlImage,
                 
               },
               
