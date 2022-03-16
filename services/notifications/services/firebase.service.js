@@ -3,10 +3,14 @@ const boom = require('@hapi/boom');
 var adminSdkFirebase = require('firebase-admin');
 const { getMessaging } = require('firebase-admin/messaging');
 const serviceAccount = require('../../../path/to/serviceAccountKey.json');
+const dotenv = require('dotenv');
+const path = require('path');
 adminSdkFirebase.initializeApp({
   credential: adminSdkFirebase.credential.cert(serviceAccount),
 }); 
-
+dotenv.config({
+  path: path.resolve(__dirname,'.env')
+});
 class firebaseService{
 
 constructor(){
@@ -41,17 +45,37 @@ await adminSdkFirebase.messaging().unsubscribeFromTopic(registrationTokens, topi
   });
 }
 
-async sendMessageTopic(topic,title,body){
+async sendMessageTopic(topic,title,body,image){
+  const urlImage= process.env.BucketS3 + image;
   var funcionresponse;
         const message = {
             notification: {
                 title: title,
-                body: body
-              },     
+                body: body,                
+                image: urlImage,
+                
+              },
+              
+                   
           data: {
-            //volume : "3.21.15",
-            type : "messagetopic"
-          },
+            volume : "3.21.15",
+            contents : "http://www.news-magazine.com/world-week/21659772",
+            icon: "https://firebase.matius-rock.com/images.jpg",
+            sound: "https://firebase.matius-rock.com/wonder_S0Bhneir(1).mp3"
+       },
+       fcm_options: {
+        "analytics_label": "pushtest1"
+      },
+       webpush: {
+        headers: {
+          Urgency: "high"
+        },
+        fcm_options: {
+          "link": "https://firebase.matius-rock.com/wonder.mp3",
+          "analytics_label": "pushtest1web"
+        },
+      },
+  
           topic: topic    
         };        
         await adminSdkFirebase.messaging().send(message)

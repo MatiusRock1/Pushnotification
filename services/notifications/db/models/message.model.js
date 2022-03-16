@@ -4,7 +4,6 @@ const Schema = moongose.Schema;
 const TypeSchema = {
     name: String,
     url_image:String,
-    url_video: String,
     screenid: String,
 };
 const targetSchema = {
@@ -18,13 +17,7 @@ const targetSchema = {
         ref: "Topics"
     }]
 };
-const SoundSchema = {
-    isTrue:{
-        type: Boolean,
-        default: true
-    },
-    url_sound: String,
-};
+
 const ScheduletionSchema = {
     isTrue:{
         type: Boolean,
@@ -46,7 +39,7 @@ const DevicesShema = new Schema({
         type : Boolean,
         default: true
     },
-    sound : SoundSchema,
+    
     shedule: ScheduletionSchema     
     
 

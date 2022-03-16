@@ -55,21 +55,14 @@ async findOneReturntoken(id){
     return deviceToken;
 }
 async deviceIncludeTopicName(id){
-    return new Promise((resolve,reject)=>{
-        devicesModel.findOne(
-            {_id:id}
-        )
-        .populate('topics',{
-            name:1
-        })
-        .exec((error,populated) =>{
-            if(error){
-                console.log(error);
-            }
-            resolve(populated);
-        });
-
+    const devices = await devicesModel.findOne({
+        _id:id
     });
+    await devices.populate('topics',{
+        name:1
+    });
+    return devices;   
+
 }
 async findUpdateDevicesTopic(id,idTopic){
     const devices = await devicesModel.findOneAndUpdate(
